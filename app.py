@@ -391,7 +391,6 @@ elif st.session_state.view == 'letter':
                 <p>I don’t really know how to start this, but I just wanted to say something that’s been on my mind.</p>
                 <p>You’re genuinely one of the easiest people to talk to. It felt natural talking to you. Whether it was something important or complete nonsense, talking to you was always nice.</p>
                 <p>I still remember you saying, <em>“If something ever bothers you, you can always talk to me.”</em> Maybe you don't even remember saying it, but I do. It wasn't some life-changing moment or anything dramatic, it just felt nice knowing someone genuinely meant it.</p>
-                <p>And honestly, that's kind of what I like about you. Nothing feels forced. You're a kind person in a very normal, real way.</p>
                 <p>Since it's your birthday, I just wanted to take the chance to say all of this. I hope this year brings you a lot of good memories, people who make you happy, and plenty of moments that make you smile.</p>
             </div>
             <div class='handwritten fade-in' style='text-align: right; margin-top: 3rem;'>Happy Birthday</div>

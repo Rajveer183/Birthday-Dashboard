@@ -349,7 +349,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     background: rgba(20, 20, 28, 0.4);
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); margin-bottom: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); margin-bottom: 0.5rem;
     animation: gentleFloat 6s ease-in-out infinite alternate;
 }
 @keyframes gentleFloat {
@@ -397,8 +397,8 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 .letter-text p { margin-bottom: 0.8rem; }
 .handwritten { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #c7d2fe; }
 .text-center { text-align: center; }
-.delay-1 { animation-delay: 0.3s; } .delay-2 { animation-delay: 0.6s; } .delay-3 { animation-delay: 0.9s; } .delay-4 { animation-delay: 1.2s; }
-.fade-in { animation: fadeIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
+.delay-1 { animation-delay: 0.15s; } .delay-2 { animation-delay: 0.3s; } .delay-3 { animation-delay: 0.45s; } .delay-4 { animation-delay: 0.6s; }
+.fade-in { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
 span.home-btn-anchor { display: none; }
 div.element-container:has(.home-btn-anchor) {
     display: none !important;
@@ -518,9 +518,10 @@ components.html("""
 
 
 # Helper function to render base64 image
-def get_base64_image(image_path):
+@st.cache_data
+def get_base64_image(image_path_str):
     try:
-        with open(image_path, "rb") as img_file:
+        with open(image_path_str, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
     except Exception:
         return ""
@@ -637,7 +638,7 @@ elif st.session_state.view == 'memories':
 
         cols = st.columns(3)
         for i, img_path in enumerate(image_paths):
-            b64_img = get_base64_image(img_path)
+            b64_img = get_base64_image(str(img_path))
             col_idx = i % 3
             with cols[col_idx]:
                 st.markdown(f"""

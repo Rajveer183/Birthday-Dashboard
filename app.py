@@ -296,7 +296,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     border-radius: 50%;
     animation: floatParticle linear infinite;
     opacity: 0.5;
-    box-shadow: 0 0 10px white, 0 0 20px white;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
     pointer-events: none;
     z-index: 0;
 }
@@ -308,11 +308,11 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 }
 /* Decorative Elements & Confetti */
 .decor-container { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; pointer-events: none; overflow: hidden; z-index: 5; }
-.decor { position: absolute; opacity: 0; animation: twinkleFloat 12s infinite ease-in-out alternate; }
+.decor { position: absolute; opacity: 0; animation: twinkleFloat 3s infinite ease-in-out alternate; }
 
 @keyframes twinkleFloat {
     0% { transform: translateY(0) scale(1); opacity: 0.1; }
-    50% { opacity: 0.6; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
+    50% { opacity: 0.6; }
     100% { transform: translateY(-30px) scale(1.1); opacity: 0.3; }
 }
 
@@ -340,10 +340,10 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 .gallery-section-wrapper { position: relative; width: 100%; z-index: 10; }
 .gallery-bg-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%); filter: blur(60px); z-index: 0; pointer-events: none; }
 .gallery-decor-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; }
-.gallery-decor { position: absolute; opacity: 0; animation: twinkleFloat 12s infinite ease-in-out alternate; }
+.gallery-decor { position: absolute; opacity: 0; animation: twinkleFloat 3s infinite ease-in-out alternate; }
 
 .gallery-img-container {
-    width: 100%; padding-top: 85%; position: relative; border-radius: 24px;
+    width: 100%; padding-top: 135%; position: relative; border-radius: 24px;
     overflow: hidden; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.25), 0 0 25px rgba(170,120,255,0.08);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -481,7 +481,7 @@ components.html("""
         particlesContainer.id = 'custom-particles';
         parentDoc.body.appendChild(particlesContainer);
         
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 15; i++) {
             let p = parentDoc.createElement('div');
             p.classList.add('particle');
             p.style.width = Math.random() * 3 + 1 + 'px';
@@ -528,40 +528,42 @@ def get_base64_image(image_path):
 def nav_to(view_name):
     st.session_state.view = view_name
 
+# --- Global Background Decor ---
+import random
+random.seed(42) # Consistent random placement
+decor_html = '<div class="decor-container">'
+
+# 20 perfectly balanced particles
+particle_coords = [
+    (10, 15), (25, 30), (35, 10), 
+    (48, 75), (55, 8), 
+    (65, 35), (75, 12), 
+    (82, 60), (95, 20), (15, 50)
+]
+for t, l in particle_coords:
+    d, s = random.uniform(0, 3), random.uniform(0.6, 1.2)
+    decor_html += f'<div class="decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem;">✨</div>'
+    
+# 8 perfectly balanced stars
+star_coords = [
+    (8, 25), (32, 8),
+    (68, 15), (92, 65)
+]
+for t, l in star_coords:
+    d, s = random.uniform(0, 3), random.uniform(0.8, 1.6)
+    decor_html += f'<div class="decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem;">⭐</div>'
+    
+# Fixed elegant elements
+decor_html += '<div class="decor" style="top:25%; left:12%; animation-delay:1s; font-size:2rem;">🦋</div>'
+decor_html += '<div class="decor" style="bottom:30%; right:15%; animation-delay:2s; font-size:1.5rem;">🦋</div>'
+decor_html += '<div class="decor" style="top:12%; right:18%; animation-delay:0s; font-size:2.5rem;">🌙</div>'
+decor_html += '</div>'
+
+st.markdown(decor_html, unsafe_allow_html=True)
+
 # ----------------- HOME VIEW -----------------
 if st.session_state.view == 'home':
-    import random
-    random.seed(42) # Consistent random placement
-    decor_html = '<div class="decor-container">'
-    
-    # 20 perfectly balanced particles
-    particle_coords = [
-        (10, 15), (12, 85), (25, 30), (22, 65), (35, 10), 
-        (38, 88), (45, 22), (48, 75), (55, 8), (58, 92), 
-        (65, 35), (62, 68), (75, 12), (78, 82), (85, 40), 
-        (82, 60), (95, 20), (92, 78), (15, 50), (88, 50)
-    ]
-    for t, l in particle_coords:
-        d, s = random.uniform(0, 3), random.uniform(0.6, 1.2)
-        decor_html += f'<div class="decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem;">✨</div>'
-        
-    # 8 perfectly balanced stars
-    star_coords = [
-        (8, 25), (18, 72), (32, 8), (42, 88),
-        (68, 15), (72, 90), (88, 30), (92, 65)
-    ]
-    for t, l in star_coords:
-        d, s = random.uniform(0, 3), random.uniform(0.8, 1.6)
-        decor_html += f'<div class="decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem;">⭐</div>'
-        
-    # Fixed elegant elements
-    decor_html += '<div class="decor" style="top:25%; left:12%; animation-delay:1s; font-size:2rem;">🦋</div>'
-    decor_html += '<div class="decor" style="bottom:30%; right:15%; animation-delay:2s; font-size:1.5rem;">🦋</div>'
-    decor_html += '<div class="decor" style="top:12%; right:18%; animation-delay:0s; font-size:2.5rem;">🌙</div>'
-    decor_html += '</div>'
-
-    st.markdown(f"""
-        {decor_html}
+    st.markdown("""
         <div class="hero-wrapper">
             <div class="badge-pill">✦ Today is All About You ✦</div>
             <div style="text-align: center;">
@@ -600,7 +602,7 @@ elif st.session_state.view == 'memories':
     
     st.markdown("""
         <div style="text-align: center; margin-top: 1rem;">
-            <h2 class="memories-title fade-in">✨ Some Moments Worth Keeping ✨</h2>
+            <h2 class="memories-title fade-in"><span style="-webkit-text-fill-color: initial;">✨</span> Some Moments Worth Keeping <span style="-webkit-text-fill-color: initial;">✨</span></h2>
         </div>
     """, unsafe_allow_html=True)
     
@@ -672,7 +674,7 @@ elif st.session_state.view == 'letter':
 
     st.markdown("""
         <div style="text-align: center; margin-top: 1rem;">
-            <h2 class="memories-title fade-in">💌 A Letter For You 💌</h2>
+            <h2 class="memories-title fade-in"><span style="-webkit-text-fill-color: initial;">🌙</span> Before This Day Ends <span style="-webkit-text-fill-color: initial;">✨</span></h2>
         </div>
     """, unsafe_allow_html=True)
 
@@ -689,24 +691,6 @@ elif st.session_state.view == 'letter':
             <div class='handwritten fade-in' style='text-align: right; font-size: 1.8rem; margin-top: -10px;'>— Rajveer</div>
         </div>
     """, unsafe_allow_html=True)
-    
-    # Hidden Surprise
-    col_empty1, col_star, col_empty2 = st.columns([4,1,4])
-    with col_star:
-        # Using a very basic Streamlit button for the star
-        st.markdown("<div style='text-align: center; animation: revealText 2s ease forwards; opacity: 0;'>", unsafe_allow_html=True)
-        if st.button("⭐", key="btn_star"):
-            st.session_state.hidden_star_revealed = True
-            st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
-            
-    if st.session_state.hidden_star_revealed:
-        st.markdown("""
-            <div class='text-center fade-in' style='margin-top: 1rem; color: #a5b4fc; font-family: Playfair Display; font-style: italic;'>
-                "Thank you for being exactly the kind of friend people are lucky to find."
-            </div>
-        """, unsafe_allow_html=True)
-    
     st.write("<div style='height: 1rem;'></div>", unsafe_allow_html=True)
             
 

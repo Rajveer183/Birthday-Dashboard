@@ -19,29 +19,24 @@ cursor_svg = """<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
 </svg>"""
 cursor_b64 = base64.b64encode(cursor_svg.encode()).decode()
 
-# --- Dynamic Scroll Locking ---
-if st.session_state.view in ['home', 'memories']:
-    st.markdown("""
-        <style>
-        /* Absolutely lock scrolling on static pages (fixes keyboard arrow scrolling) */
-        html, body, [data-testid="stAppViewContainer"], [data-testid="stAppViewBlockContainer"], .main, .block-container, [data-testid="stApp"] {
-            overflow: hidden !important;
-            max-height: 100vh !important;
-            touch-action: none !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-else:
-    st.markdown("""
-        <style>
-        /* Enable scrolling for the letter page */
-        html, body, [data-testid="stAppViewContainer"], [data-testid="stAppViewBlockContainer"], .main, .block-container, [data-testid="stApp"] {
-            overflow-y: auto !important;
-            max-height: none !important;
-            touch-action: auto !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+# --- Global Scroll Settings ---
+st.markdown("""
+    <style>
+    /* Hide the scrollbar but keep Streamlit's native scrolling active */
+    * { 
+        scrollbar-width: none !important; 
+        -ms-overflow-style: none !important; 
+    } 
+    *::-webkit-scrollbar { 
+        display: none !important; 
+    }
+    
+    /* Ensure no container blocks pointer events incorrectly */
+    [data-testid="stAppViewContainer"] {
+        touch-action: auto !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # --- CSS Injection ---
 st.markdown("""
@@ -535,13 +530,6 @@ def nav_to(view_name):
 
 # ----------------- HOME VIEW -----------------
 if st.session_state.view == 'home':
-    st.markdown("""
-        <style>
-        html, body, [data-testid="stAppViewContainer"], .main { overflow: hidden !important; height: 100vh !important; max-height: 100vh !important; }
-        * { scrollbar-width: none !important; } *::-webkit-scrollbar { display: none !important; }
-        .main .block-container { position: fixed; width: 100%; height: 100vh; left: 50%; transform: translateX(-50%); overflow: hidden !important; }
-        </style>
-    """, unsafe_allow_html=True)
     import random
     random.seed(42) # Consistent random placement
     decor_html = '<div class="decor-container">'
@@ -605,13 +593,6 @@ if st.session_state.view == 'home':
 
 # ----------------- MEMORIES VIEW -----------------
 elif st.session_state.view == 'memories':
-    st.markdown("""
-        <style>
-        html, body, [data-testid="stAppViewContainer"], .main { overflow: hidden !important; height: 100vh !important; max-height: 100vh !important; }
-        * { scrollbar-width: none !important; } *::-webkit-scrollbar { display: none !important; }
-        .main .block-container { position: fixed; width: 100%; height: 100vh; left: 50%; transform: translateX(-50%); overflow: hidden !important; }
-        </style>
-    """, unsafe_allow_html=True)
     st.markdown("<span class='home-btn-anchor'></span>", unsafe_allow_html=True)
     if st.button("🏠 HOME", key="btn_home_mem"):
         nav_to('home')

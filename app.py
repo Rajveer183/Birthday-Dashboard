@@ -55,7 +55,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 
 /* Static champagne background */
 .stApp {
-    background: linear-gradient(135deg, #FAF4E7 0%, #F4EBD8 45%, #EDE0C6 100%) !important;
+    background: linear-gradient(135deg, #EEE7D8 0%, #E8DECA 45%, #E1D4B9 100%) !important;
     background-attachment: fixed !important;
     color: #3F3F46;
     font-family: 'Inter', sans-serif;
@@ -96,11 +96,11 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     background: rgba(255, 250, 244, 0.88);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(199, 154, 45, 0.18);
+    border: 1px solid rgba(199, 154, 45, 0.15);
     border-radius: 32px;
     padding: 2rem 1.5rem 0.8rem 1.5rem; /* Reduced height by ~50px */
     box-shadow: 0 20px 60px rgba(183, 134, 11, 0.10);
-    animation: fadeIn 3s ease-out forwards;
+    animation: fadeIn 3s ease-out forwards, cardFloat 7s 3s ease-in-out infinite alternate;
 }
 
 .hero-wrapper::before {
@@ -140,20 +140,13 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     margin: 0;
     padding: 0;
     line-height: 1.1;
-    background: linear-gradient(105deg, #A97F13 0%, #C79A2D 28%, #DFC275 47%, #C79A2D 66%, #A97F13 100%);
+    background: linear-gradient(180deg, #E2BC53 0%, #C89A2B 55%, #A97812 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 40px rgba(199, 154, 45, 0.14); /* softened ambient glow */
+    text-shadow: 0 2px 12px rgba(199, 154, 45, 0.18);
     position: relative;
     z-index: 1;
     animation: fadeIn 4s ease forwards;
-}
-
-.hero-title::after {
-    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 150%; height: 150%;
-    background: radial-gradient(circle, rgba(199,154,45,0.10) 0%, transparent 60%);
-    z-index: -1; pointer-events: none;
 }
 
 .hero-subtitle {
@@ -164,29 +157,18 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     padding: 0;
     position: relative;
     z-index: 1;
-    background: linear-gradient(115deg, #B8860B 0%, #C79A2D 38%, #DDBE6E 54%, #C79A2D 70%, #B8860B 100%);
+    background: linear-gradient(180deg, #E2BC53 0%, #C89A2B 55%, #A97812 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: slideUp 2s ease-out forwards, pulseGlow 6s infinite alternate;
-}
-
-.hero-subtitle::before {
-    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 120%; height: 120%;
-    background: radial-gradient(circle, rgba(199,154,45,0.12) 0%, transparent 60%);
-    z-index: -1; pointer-events: none;
-}
-
-@keyframes pulseGlow {
-    0% { filter: drop-shadow(0 0 5px rgba(199, 154, 45, 0.18)); }
-    100% { filter: drop-shadow(0 0 20px rgba(199, 154, 45, 0.42)); }
+    text-shadow: 0 2px 10px rgba(199, 154, 45, 0.15);
+    animation: slideUp 2s ease-out forwards;
 }
 
 .hero-quote {
     font-family: 'Inter', sans-serif;
     font-style: italic;
     font-size: 1.1rem;
-    color: #52525B;
+    color: #5F6673;
     font-weight: 300;
     margin: 1rem 0 2rem 0;
     opacity: 0.9;
@@ -196,7 +178,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 /* Primary Buttons */
 .st-key-btn_mem button,
 .st-key-btn_let button {
-    background: #C79A2D !important;
+    background: linear-gradient(180deg, #D7AA38 0%, #C79624 100%) !important;
     border: 1px solid rgba(199, 154, 45, 0.35) !important;
     border-radius: 28px !important;
     padding: 0 !important;
@@ -210,7 +192,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     align-items: center !important;
     justify-content: center !important;
     gap: 0.6rem !important;
-    width: 260px !important;
+    width: 236px !important;
     height: 72px !important;
     max-width: 100% !important;
     margin: 0 auto !important;
@@ -218,10 +200,10 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 
 .st-key-btn_mem button:hover,
 .st-key-btn_let button:hover {
-    background: #B8860B !important;
+    background: linear-gradient(180deg, #C79624 0%, #B8860B 100%) !important;
     border-color: rgba(184, 134, 11, 0.55) !important;
-    transform: translateY(-6px) scale(1.02) !important;
-    box-shadow: inset 0 1px 0 rgba(255, 250, 235, 0.38), 0 14px 36px rgba(183, 134, 11, 0.24) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 250, 235, 0.38), 0 12px 32px rgba(183, 134, 11, 0.22) !important;
     color: #ffffff !important;
 }
 
@@ -245,13 +227,28 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     to { opacity: 1; }
 }
 
+/* Cards drift by a couple of pixels so the page feels alive but settled */
+@keyframes cardFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-3px); }
+}
+
 /* Decorative Elements */
 .decor-container { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; pointer-events: none; overflow: hidden; z-index: 5; }
-.decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 3s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
+.decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
 
+/* Mostly a soft opacity pulse with a hint of drift */
 @keyframes twinkleFloat {
-    0% { transform: translateY(0) scale(1); opacity: calc(var(--decor-opacity, 0.5) * 0.75); }
-    100% { transform: translateY(-24px) scale(1.06); opacity: var(--decor-opacity, 0.5); }
+    0% { transform: translateY(0) scale(0.97); opacity: calc(var(--decor-opacity, 0.5) * 0.55); }
+    100% { transform: translateY(-5px) scale(1.03); opacity: var(--decor-opacity, 0.5); }
+}
+
+/* The moon drifts slowly instead of twinkling */
+.decor.decor-moon { animation: moonFloat 9s infinite ease-in-out alternate; }
+
+@keyframes moonFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-6px); }
 }
 
 /* Paper grain */
@@ -294,7 +291,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 .glass-card {
     background: rgba(255, 250, 244, 0.88);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(199, 154, 45, 0.18);
+    border: 1px solid rgba(199, 154, 45, 0.15);
     border-radius: 28px;
     padding: 1.5rem;
     box-shadow: 0 20px 60px rgba(183, 134, 11, 0.10);
@@ -302,17 +299,22 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
     position: relative;
     z-index: 10;
 }
+/* Needs to outrank .fade-in, which also sets `animation` on this element */
+.glass-card.fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+               cardFloat 7s 1s ease-in-out infinite alternate;
+}
 /* Memories Gallery */
 .gallery-section-wrapper { position: relative; width: 100%; z-index: 10; }
 .gallery-bg-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(255,250,238,0.16) 0%, transparent 70%); filter: blur(60px); z-index: 0; pointer-events: none; }
 .gallery-decor-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; }
-.gallery-decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 3s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
+.gallery-decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
 
 .gallery-img-container {
     width: 100%; padding-top: 135%; position: relative; border-radius: 24px;
     overflow: hidden; 
     box-shadow: 0 20px 60px rgba(183, 134, 11, 0.10);
-    border: 1px solid rgba(199, 154, 45, 0.18);
+    border: 1px solid rgba(199, 154, 45, 0.15);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     background: rgba(255, 250, 244, 0.88);
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); margin-bottom: 0.5rem;
@@ -349,11 +351,11 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 }
 .quote-card {
     background: rgba(255, 250, 244, 0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(199, 154, 45, 0.18); border-radius: 28px;
-    padding: 1rem 1.5rem; margin: 0 auto 0.5rem auto; max-width: 700px;
+    border: 1px solid rgba(199, 154, 45, 0.15); border-radius: 28px;
+    padding: 1rem 1.5rem; margin: 0 auto 1.4rem auto; max-width: 700px;
     box-shadow: 0 20px 60px rgba(183, 134, 11, 0.10); text-align: center;
 }
-.quote-text { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; color: #52525B; line-height: 1.5; margin: 0; }
+.quote-text { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; color: #5F6673; line-height: 1.5; margin: 0; }
 
 /* Section Titles */
 .memories-title {
@@ -389,7 +391,7 @@ div.element-container:has(.home-btn-anchor) + div.element-container button {
     background: rgba(255, 250, 244, 0.88) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(199, 154, 45, 0.18) !important;
+    border: 1px solid rgba(199, 154, 45, 0.15) !important;
     border-radius: 20px !important;
     color: #B8860B !important;
     font-size: 0.9rem !important;
@@ -430,30 +432,37 @@ def nav_to(view_name):
 
 # --- Global Background Decor ---
 random.seed(42) # Consistent random placement
+
+
+def mirrored_decor(glyph, top, inset, size_range, css_class="decor"):
+    """Place a glyph at an equal inset from the left and right edges.
+
+    Both halves share size, opacity and delay so the pair reads as a mirror.
+    Insets stay under 15% so the glyphs clear the centred content card.
+    """
+    delay = round(random.uniform(0, 3), 2)
+    size = round(random.uniform(*size_range), 2)
+    opacity = round(random.uniform(0.3, 0.7), 2)
+    return "".join(
+        f'<div class="{css_class}" style="top:{top}%; {side}:{inset}%; '
+        f'animation-delay:{delay}s; font-size:{size}rem; --decor-opacity:{opacity};">{glyph}</div>'
+        for side in ("left", "right")
+    )
+
+
 decor_html = '<div class="paper-grain"></div><div class="decor-container">'
 
-# Sparse, evenly spread sparkles
-sparkle_coords = [
-    (10, 15), (35, 10),
-    (48, 75), (65, 35),
-    (82, 60), (15, 50)
-]
-for t, l in sparkle_coords:
-    d, s = random.uniform(0, 3), random.uniform(0.5, 0.9)
-    o = random.uniform(0.3, 0.7)
-    decor_html += f'<div class="decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem; --decor-opacity:{o};">✨</div>'
-    
-# A few accent stars
-star_coords = [
-    (8, 25), (68, 15), (92, 65)
-]
-for t, l in star_coords:
-    d, s = random.uniform(0, 3), random.uniform(0.6, 1.1)
-    o = random.uniform(0.3, 0.7)
-    decor_html += f'<div class="decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem; --decor-opacity:{o};">⭐</div>'
-    
-# Fixed elegant elements
-decor_html += '<div class="decor" style="top:6%; right:6%; animation-delay:0s; font-size:2.15rem; --decor-opacity:0.55;">🌙</div>'
+# Sparkles, mirrored left to right
+for top, inset in [(16, 9), (48, 5), (78, 13)]:
+    decor_html += mirrored_decor("✨", top, inset, (0.5, 0.9))
+
+# Accent stars, mirrored left to right
+for top, inset in [(34, 13), (62, 7), (90, 12)]:
+    decor_html += mirrored_decor("⭐", top, inset, (0.6, 1.1))
+
+# Balanced top corners: moon on the right, a smaller star on the left
+decor_html += '<div class="decor" style="top:6%; left:6%; animation-delay:0s; font-size:1.2rem; --decor-opacity:0.5;">⭐</div>'
+decor_html += '<div class="decor decor-moon" style="top:6%; right:6%; font-size:2.15rem; --decor-opacity:0.55;">🌙</div>'
 decor_html += '</div>'
 
 st.markdown(decor_html, unsafe_allow_html=True)
@@ -525,20 +534,27 @@ elif st.session_state.view == 'memories':
         # Gallery Layout using columns
         st.markdown("<div class='gallery-section-wrapper fade-in delay-1'><div class='gallery-bg-glow'></div>", unsafe_allow_html=True)
         
-        # Twinkling stars specifically for gallery
+        # Twinkling stars specifically for gallery, mirrored left to right
         decor_html = '<div class="gallery-decor-container">'
-        star_coords = [(5, 10), (85, 12), (75, 88)]
-        for t, l in star_coords:
-            d, s = random.uniform(0, 3), random.uniform(0.6, 1.0)
-            o = random.uniform(0.3, 0.7)
-            decor_html += f'<div class="gallery-decor" style="top:{t}%; left:{l}%; animation-delay:{d}s; font-size:{s}rem; --decor-opacity:{o};">⭐</div>'
+        for top, inset in [(5, 9), (84, 9)]:
+            decor_html += mirrored_decor("⭐", top, inset, (0.6, 1.0), css_class="gallery-decor")
         decor_html += '</div>'
         st.markdown(decor_html, unsafe_allow_html=True)
 
         cols = st.columns(3)
+        caption_by_name = {
+            "diwali": "A Warm Memory",
+            "holi": "Colors of Joy",
+            "random": "One More Smile",
+        }
         for i, img_path in enumerate(image_paths):
             b64_img = get_base64_image(str(img_path))
-            caption = html.escape(img_path.stem.replace("_", " ").replace("-", " ").title())
+            caption = html.escape(
+                caption_by_name.get(
+                    img_path.stem.lower(),
+                    img_path.stem.replace("_", " ").replace("-", " ").title(),
+                )
+            )
             col_idx = i % 3
             with cols[col_idx]:
                 st.markdown(f"""

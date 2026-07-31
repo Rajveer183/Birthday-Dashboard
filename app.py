@@ -235,12 +235,12 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 
 /* Decorative Elements */
 .decor-container { position: fixed; width: 100vw; height: 100vh; top: 0; left: 0; pointer-events: none; overflow: hidden; z-index: 5; }
-.decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
+.decor { position: absolute; opacity: var(--decor-opacity, 0.7); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.45) saturate(1.55) hue-rotate(-14deg); }
 
-/* Mostly a soft opacity pulse with a hint of drift */
+/* Soft opacity pulse with a hint of drift — stays readable on champagne */
 @keyframes twinkleFloat {
-    0% { transform: translateY(0) scale(0.97); opacity: calc(var(--decor-opacity, 0.5) * 0.55); }
-    100% { transform: translateY(-5px) scale(1.03); opacity: var(--decor-opacity, 0.5); }
+    0% { transform: translateY(0) scale(0.97); opacity: calc(var(--decor-opacity, 0.7) * 0.78); }
+    100% { transform: translateY(-5px) scale(1.03); opacity: var(--decor-opacity, 0.7); }
 }
 
 /* The moon drifts slowly instead of twinkling */
@@ -308,7 +308,7 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 .gallery-section-wrapper { position: relative; width: 100%; z-index: 10; }
 .gallery-bg-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(circle, rgba(255,250,238,0.16) 0%, transparent 70%); filter: blur(60px); z-index: 0; pointer-events: none; }
 .gallery-decor-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; }
-.gallery-decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
+.gallery-decor { position: absolute; opacity: var(--decor-opacity, 0.7); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.45) saturate(1.55) hue-rotate(-14deg); }
 
 .gallery-img-container {
     width: 100%;
@@ -461,7 +461,7 @@ def mirrored_decor(glyph, top, inset, size_range, css_class="decor"):
     """
     delay = round(random.uniform(0, 3), 2)
     size = round(random.uniform(*size_range), 2)
-    opacity = round(random.uniform(0.3, 0.7), 2)
+    opacity = round(random.uniform(0.58, 0.88), 2)
     return "".join(
         f'<div class="{css_class}" style="top:{top}%; {side}:{inset}%; '
         f'animation-delay:{delay}s; font-size:{size}rem; --decor-opacity:{opacity};">{glyph}</div>'
@@ -480,8 +480,8 @@ for top, inset in [(34, 13), (62, 7), (90, 12)]:
     decor_html += mirrored_decor("⭐", top, inset, (0.6, 1.1))
 
 # Balanced top corners: moon on the right, a smaller star on the left
-decor_html += '<div class="decor" style="top:6%; left:6%; animation-delay:0s; font-size:1.2rem; --decor-opacity:0.5;">⭐</div>'
-decor_html += '<div class="decor decor-moon" style="top:6%; right:6%; font-size:2.15rem; --decor-opacity:0.55;">🌙</div>'
+decor_html += '<div class="decor" style="top:6%; left:6%; animation-delay:0s; font-size:1.2rem; --decor-opacity:0.78;">⭐</div>'
+decor_html += '<div class="decor decor-moon" style="top:6%; right:6%; font-size:2.15rem; --decor-opacity:0.82;">🌙</div>'
 decor_html += '</div>'
 
 st.markdown(decor_html, unsafe_allow_html=True)

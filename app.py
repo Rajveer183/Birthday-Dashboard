@@ -311,32 +311,51 @@ div[data-testid="stStatusWidget"] {visibility: hidden !important;}
 .gallery-decor { position: absolute; opacity: var(--decor-opacity, 0.5); animation: twinkleFloat 4.5s infinite ease-in-out alternate; filter: sepia(0.5) saturate(1.4) hue-rotate(-14deg); }
 
 .gallery-img-container {
-    width: 100%; padding-top: 135%; position: relative; border-radius: 24px;
-    overflow: hidden; 
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
     box-shadow: 0 20px 60px rgba(183, 134, 11, 0.10);
-    border: 1px solid rgba(199, 154, 45, 0.15);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    background: rgba(255, 250, 244, 0.88);
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); margin-bottom: 0.5rem;
+    border: none;
+    background: #F4EBD8;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    margin-bottom: 0.5rem;
     animation: gentleFloat 6s ease-in-out infinite alternate;
 }
 @keyframes gentleFloat {
     0% { transform: translateY(2px); }
     100% { transform: translateY(-3px); }
 }
-.gallery-img-container:hover { 
-    transform: scale(1.04) translateY(-8px); 
+.gallery-img-container:hover {
+    transform: scale(1.02) translateY(-6px);
     box-shadow: 0 24px 60px rgba(183, 134, 11, 0.18);
-    border: 1px solid rgba(199, 154, 45, 0.38);
     animation-play-state: paused;
 }
+/* Soft fill behind the photo so every card is the same size without cropping */
 .img-blur-bg {
-    position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
-    background-size: cover; background-position: center;
-    filter: blur(20px) brightness(1.05) saturate(1.1); z-index: 0;
+    position: absolute;
+    inset: -12%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(28px) saturate(1.05) brightness(0.96);
+    z-index: 0;
+    pointer-events: none;
 }
-.gallery-img-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; border-radius: 24px; }
-.gallery-gradient-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, rgba(90, 70, 20, 0.14) 0%, transparent 100%); z-index: 2; pointer-events: none; }
+.gallery-img-container img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    image-rendering: auto;
+    z-index: 1;
+    border-radius: 0;
+}
+.gallery-gradient-overlay {
+    display: none !important;
+}
 .gallery-caption {
     font-family: 'Inter', sans-serif; font-size: 0.82rem; color: #6B7280;
     text-align: center; letter-spacing: 0.04em;
@@ -561,7 +580,6 @@ elif st.session_state.view == 'memories':
                     <div class='gallery-img-container fade-in delay-{min(i%4 + 1, 4)}'>
                         <div class='img-blur-bg' style='background-image: url(data:image/jpeg;base64,{b64_img})'></div>
                         <img src="data:image/jpeg;base64,{b64_img}" alt="{caption}">
-                        <div class='gallery-gradient-overlay'></div>
                     </div>
                     <div class='gallery-caption fade-in delay-{min(i%4 + 1, 4)}'>{caption}</div>
                 """, unsafe_allow_html=True)
